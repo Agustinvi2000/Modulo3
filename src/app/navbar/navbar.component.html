@@ -1,1 +1,202 @@
-<p>navbar works!</p>
+<header class="fixed-top">
+  <!-- Navbar Code -->
+  <nav class="navbar navbar-expand-lg bg-secondary px-2">
+    <div class="container-fluid">
+      <img class="logo" src="assets/img/Logo AP.png" />
+      <div class="d-flex">
+        <div class="navbar" *ngIf="isLogged">
+          <div class="px-2" *ngIf="isAdmin && mostrarEdicion">
+            <button
+                data-bs-target="#redesModal"
+                data-bs-toggle="modal"
+                class="btn fa-solid fa-pencil fa-lg redesEdicion"
+                (click)="idEdit()"
+              ></button>
+            <!-- <a href="#redesModal" class=""  data-bs-toggle="modal" (click)="idEdit()> 
+              <i class="fa-solid fa-pencil fa-lg redesEdicion"></i>
+            </a> -->
+          </div>
+          <div class="px-2" *ngFor="let red of redes">
+            <a [href]="red.url">
+              <i class="fa-brands fa-xl colorRedes" [class]="red.icono"> </i>
+            </a>
+          </div>
+        </div>
+        <div *ngIf="!isLogin && !isLogged">
+          <button type="button" class="btn" routerLink="/login">
+            <i class="fa-solid fa-right-to-bracket fa-xl colorRedes"></i>
+          </button>
+        </div>
+        <div *ngIf="isLogged && isAdmin && mostrarEdicion">
+          <button type="button" class="btn" routerLink="/">
+            <i class="fa-solid fa-user-lock fa-xl colorRedes"></i>
+          </button>
+        </div>
+        <div *ngIf="isLogged && isAdmin && !mostrarEdicion">
+          <!-- <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal"> -->
+          <button type="button" class="btn" routerLink="/dashboard">
+            <i class="fa-solid fa-user fa-xl colorRedes"></i>
+          </button>
+        </div>
+        <button *ngIf="isLogged" class="btn" (click)="onLogOut()" type="reset">
+          <!-- <i class="fas fa-sign-in-alt"></i>  -->
+          <i class="fas fa-door-open fa-xl colorRedes"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <!-- FIN Navbar Code -->
+</header>
+
+
+
+
+
+
+
+
+
+
+
+
+<form [formGroup]="form" (ngSubmit)="onEnviar($event)">
+    <!-- Redes Modal -->
+    <div
+      class="modal fade"
+      id="redesModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="redesModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="redesModalLabel">Redes Sociales</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              (click)="limpiar()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- <div class="input-group mb-3 row row-cols-auto">
+              <div class="d-flex align-items-center pe-2 col-2">Linkedin</div>
+              <div class="input-group-text col">
+                <input
+                  class="form-check-input mt-0"
+                  type="checkbox"
+                  value=""
+                  id="linkedinCheck"
+                  formControlName="linkedinCheck"
+                />
+              </div>
+              <input
+                type="text"
+                class="form-control col"
+                *ngIf="LinkedinCheck?.value"
+                placeholder="https://linkedin.com/"
+                id="linkedin"
+                formControlName="linkedin"
+              />
+            </div>
+            <div
+              *ngIf="
+                LinkedinCheck?.value &&
+                Linkedin?.invalid &&
+                (Linkedin?.dirty || Linkedin?.touched)
+              "
+            >
+              <p *ngIf="Linkedin?.hasError('required')" class="error">
+                Campo requerido.
+              </p>
+              <p *ngIf="Linkedin?.hasError('pattern')" class="error">
+                Formato incorrecto de dirección web.
+              </p>
+            </div> -->
+  
+            <div class="input-group mb-3 row row-cols-auto">
+              <!-- <div class="d-flex align-items-center pe-2 col-2">{{nombre}}</div> -->
+              <div class="input-group input-group-sm mb-3">
+                  <span class="input-group-text">Red Social</span>
+                  <select
+                    class="form-select form-select-sm"
+                    id="icono"
+                    formControlName="icono"
+                    [ngClass]="{
+                      'is-invalid': Icono?.errors && Icono?.touched,
+                      'is-valid': !Icono?.errors && Icono?.touched
+                    }"
+                  >
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="fa-github">Github</option>
+                    <option value="fa-linkedin">Linkedin</option>
+                    <option value="fa-facebook">Facebook</option>
+                    <option value="fa-instagram">Instagram</option>
+                    <option value="fa-twitch">Twitch</option>
+                    <option value="fa-youtube">Youtube</option>
+                    <option value="fa-tiktok">TikTok</option>
+                    <option value="fa-twitter">Twitter</option>
+                    <option value="fa-codepen">CodePen</option>
+                  </select>
+  <!-- 
+              <div class="input-group-text col">
+                <input
+                  class="form-check-input mt-0"
+                  type="checkbox"
+                  [value]="check"
+                  id="check"
+                  formControlName="check"
+                />
+              </div> -->
+
+              <input
+                type="text"
+                class="form-control col"              
+                placeholder="https://redsocial.com/"
+                id="url"
+                formControlName="url"
+                />
+
+            </div>
+            <div
+              *ngIf="              
+              Url?.invalid &&
+                (Url?.dirty || Url?.touched)"
+            >
+              <p *ngIf="Icono?.hasError('required')" class="error">
+                Campo requerido.
+              </p>
+              <p *ngIf="Icono?.hasError('pattern')" class="error">
+                Formato incorrecto de dirección web.
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="limpiar()"
+            >
+              Salir sin guardar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="form.invalid"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- FIN Redes Modal -->
+  </form>
+  

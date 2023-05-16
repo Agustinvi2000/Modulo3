@@ -1,0 +1,107 @@
+/* Logo Argentina Programa */
+.logo{
+    max-width: 43%;
+} 
+/* FIN Logo Argentina Programa */
+
+/* Inicio Redes */
+/* .fa-linkedin,
+.fa-github{
+    color: #fff;
+    } */
+.colorRedes{
+    color: #fff;
+    }
+/* .fa-linkedin:hover{
+    color: #00a6ff;
+    }
+.fa-github:hover{
+    color: #000;
+    } */
+/* Fin Redes */
+
+/* Icono Login/Logout */
+.fa-right-to-bracket:hover{
+    color:#ffff00;
+}
+.fa-user:hover{
+    color:#00e240;
+}
+/* .fa-right-to-bracket{
+    color:#fff
+} */
+/* Fin Icono Login/Logout */
+
+
+
+
+
+
+
+/*
+
+.navbar.navbar-expand-lg.bg-secondary.fixed-top{
+    background: #f1f1f1;
+
+    /* para hacer ej los colores de River Plate de pagina https://cssgradient.io/ 
+
+    background: rgb(255,255,255);
+    background: linear-gradient(141deg, rgba(255,255,255,1) 33%, rgba(255,0,0,1) 50%, rgba(255,255,255,1) 66%);
+    
+
+} 
+
+
+
+/*
+............................
+            Redes
+............................
+
+
+
+/* esto lo encuentro usando el inspeccionador del navegador 
+i.fa-brands.fa-linkedin.fa-2xl, 
+i.fa-brands.fa-github.fa-2xl, 
+i.fa-brands.fa-instagram.fa-2xl,
+i.fa-solid.fa-user.fa-2xl,
+i.fa-solid.fa-user-lock.fa-2xl
+{
+    color: #fff;
+
+}
+    
+/* esto lo encuentro usando el inspeccionador del navegador 
+i.fa-brands.fa-linkedin.fa-2xl:hover{
+    color: #0000ff;
+
+}
+
+i.fa-brands.fa-github.fa-2xl:hover{
+    color: #54a5f7;
+
+}
+
+i.fa-brands.fa-instagram.fa-2xl:hover{
+    color: #da9ff6;
+
+}
+i.fa-solid.fa-user.fa-2xl:hover, 
+i.fa-solid.fa-user-lock.fa-2xl:hover
+{
+    color: #923db9;
+
+}
+
+/* esto lo encuentro usando el inspeccionador del navegador 
+.list-group{
+--bs-list-group-bg: transparent;
+--bs-list-group-border-color: transparent;
+
+}
+
+/*
+............................
+            Redes
+............................
+*/

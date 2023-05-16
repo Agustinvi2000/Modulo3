@@ -1,0 +1,366 @@
+<!-- Sección Experiencia -->
+<section class="profile-description rounded-4">
+  <h2>
+    <div class="row">
+      <div class="col">Experiencia</div>
+
+      <!-- INICIO modal EXPERIENCIA -->
+      <div *ngIf="mostrarEdicion" class="col text-end">
+        <a href="#experienciaModalAdd" data-bs-toggle="modal" class="agregar">
+          <i class="fa-regular fa-square-plus fa-sm"></i>
+        </a>
+      </div>
+
+      <!-- FIN modal EXPERIENCIA -->
+    </div>
+  </h2>
+  <div
+    class="profile-desc-row"
+    *ngFor="let experiencia of experiencias; index as i"
+  >
+    <!-- <img [src]="experiencia.logo" /> -->
+    <!-- src="assets/img/images/microsoft.png" -->
+    <div>
+      <h3>
+        <div class="row">
+          <div class="col">
+            <!-- Lead Front-End Developer -->
+            {{ experiencia.puesto }}
+          </div>
+
+          <!-- INICIO modal EXPERIENCIA -->
+          <div *ngIf="mostrarEdicion" class="col text-end">
+            <!-- <a href="#experienciaModal" class="edicion" data-bs-toggle="modal">
+                                <i class="fa-solid fa-pencil fa-sm"></i>
+                            </a> -->
+
+            <button
+              data-bs-target="#experienciaModal"
+              data-bs-toggle="modal"
+              class="btn fa-solid fa-pencil edicion"
+              (click)="idEdit(i)"
+            ></button>
+
+            <button
+              class="btn fa-solid fa-trash borrar"
+              (click)="delete(experiencia.id)"
+            ></button>
+          </div>
+          <!-- FIN modal EXPERIENCIA -->
+        </div>
+      </h3>
+      <b
+        ><ng-container *ngIf="experiencia.url"
+          ><a href="http://{{ experiencia.url }}" target="blank">{{
+            experiencia.empresa
+          }}</a></ng-container
+        ><ng-container *ngIf="!experiencia.url">{{
+          experiencia.empresa
+        }}</ng-container>
+        &middot; {{ experiencia.tipo_empleo }}</b
+      >
+      <b
+        >{{ experiencia.ubicacion }} &middot;
+        {{ experiencia.tipo_ubicacion }}</b
+      >
+      <b>
+        {{ experiencia.inicio | date : "MM-yyyy" }} -
+        {{
+          experiencia.fin ? (experiencia.fin | date : "MM-yyyy") : "Presente"
+        }}
+        &middot; {{ getDiferenciaAnios(i) }} años
+      </b>
+      <p>
+        {{ experiencia.descripcion }}
+      </p>
+      <hr />
+    </div>
+  </div>
+</section>
+<!-- FIN Sección Experiencia -->
+
+
+
+<form [formGroup]="form" (ngSubmit)="onEnviar($event)">
+  <!-- Experiencia Modal -->
+  <div
+    class="modal fade"
+    id="experienciaModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="experienciaModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="experienciaModalLabel">
+            Experiencia Laboral
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="limpiar()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Cargo</span>
+            <!-- Agregar a los input: 
+                                [ngClass]="{'is-invalid': Cargo?.errors && Cargo?.touched, 'is-valid':!Cargo?.errors && Cargo?.touched}"
+                            -->
+            <input
+              type="text"
+              class="form-control"
+              id="puesto"
+              placeholder="Nombre del puesto laboral"
+              formControlName="puesto"
+              [ngClass]="{
+                'is-invalid': Cargo?.errors && Cargo?.touched,
+                'is-valid': !Cargo?.errors && Cargo?.touched
+              }"
+            />
+            <!-- 1) Bajar div de input
+                                2) Borrar class del mensaje error <p> 
+                                3) Agregar  al <div> de error el class="invalid-feedback"
+                            -->
+            <div
+              class="invalid-feedback"
+              *ngIf="Cargo?.errors && Cargo?.touched"
+            >
+              <p *ngIf="Cargo?.hasError('required')">
+                Se requiere escribir un Puesto Laboral.
+              </p>
+            </div>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Tipo de empleo</span>
+            <select
+              class="form-select form-select-sm"
+              id="tipo_empleo"
+              formControlName="tipo_empleo"
+            >
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option value="Jornada completa">Jornada completa</option>
+              <option value="Jornada parcial">Jornada parcial</option>
+              <option value="Autónomo">Autónomo</option>
+              <option value="Profesional independiente">
+                Profesional independiente
+              </option>
+              <option value="Contrato temporal">Contrato temporal</option>
+              <option value="Contrato de prácticas">
+                Contrato de prácticas
+              </option>
+              <option value="Contrato de formación">
+                Contrato de formación
+              </option>
+              <option value="Temporal">Temporal</option>
+            </select>
+          </div>
+
+          <div *ngIf="TipoEmpleo?.errors && TipoEmpleo?.touched">
+            <p *ngIf="TipoEmpleo?.hasError('required')" class="error">
+              Se requiere seleccionar un tipo de empleo.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Nombre de la empresa</span>
+            <input
+              type="text"
+              class="form-control"
+              id="empresa"
+              placeholder="Nombre de la empresa"
+              formControlName="empresa"
+            />
+          </div>
+
+          <div *ngIf="NombreEmpresa?.errors && NombreEmpresa?.touched">
+            <p *ngIf="NombreEmpresa?.hasError('required')" class="error">
+              Se requiere escribir el Nombre de la Empresa.
+            </p>
+          </div>
+
+          <!-- <div class="input-group input-group-sm mb-3">
+            <label class="input-group-text">Logo de la empresa</label>
+            <input
+              type="file"
+              class="form-control"
+              id="logo"
+              formControlName="logo"
+              accept="image/*"
+            />
+          </div> -->
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">URL de la empresa</span>
+            <span class="input-group-text">http://</span>
+            <input
+              type="text"
+              class="form-control"
+              id="url"
+              placeholder="www.empresa.com"
+              formControlName="url"
+            />
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Ubicación</span>
+            <input
+              type="text"
+              class="form-control"
+              id="ubicacion"
+              placeholder="Ciudad, Provincia, País"
+              formControlName="ubicacion"
+            />
+          </div>
+
+          <div *ngIf="Ubicacion?.errors && Ubicacion?.touched">
+            <p *ngIf="Ubicacion?.hasError('required')" class="error">
+              Se requiere escribir la Ubicación principal del Puesto Laboral.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Tipo de ubicación</span>
+            <select
+              class="form-select form-select-sm"
+              id="tipo_ubicacion"
+              formControlName="tipo_ubicacion"
+            >
+              <option value="" disabled>Selecciona una opción</option>
+              <option value="Presencial">Presencial</option>
+              <option value="Híbrido">Híbrido</option>
+              <option value="En remoto">En remoto</option>
+            </select>
+          </div>
+
+          <div *ngIf="TipoUbicacion?.errors && TipoUbicacion?.touched">
+            <p *ngIf="TipoUbicacion?.hasError('required')" class="error">
+              Se requiere seleccionar el tipo de Ubicación.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Fecha de inicio</span>
+            <input
+              type="date"
+              class="form-control"
+              id="inicio"
+              formControlName="inicio"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              FechaInicio?.invalid &&
+              (FechaInicio?.dirty || FechaInicio?.touched)
+            "
+          >
+            <p *ngIf="FechaInicio?.hasError('required')" class="error">
+              La fecha de inicio es requerida.
+            </p>
+
+            <p
+              *ngIf="FechaInicio?.hasError('fechaInicioInvalida')"
+              class="error"
+            >
+              La fecha de inicio no puede ser mayor que la fecha actual
+            </p>
+          </div>
+
+          <div
+            class="input-group input-group-sm mb-3"
+            *ngIf="!CargoActual?.value"
+          >
+            <span class="input-group-text">Fecha de finalización</span>
+            <input
+              type="date"
+              class="form-control"
+              id="fin"
+              formControlName="fin"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              CargoActual?.valid &&
+              FechaFin?.invalid &&
+              (FechaFin?.dirty || FechaFin?.touched)
+            "
+          >
+            <p *ngIf="FechaFin?.hasError('required')" class="error">
+              La fecha de fin es requerida o indicar si es el trabajo actual.
+            </p>
+
+            <p *ngIf="FechaFin?.hasError('fechasInvalidas')" class="error">
+              La fecha de fin no puede ser menor que la fecha de inicio.
+            </p>
+
+            <p *ngIf="FechaFin?.hasError('fechaFinInvalida')" class="error">
+              La fecha de fin no puede ser mayor que la fecha actual.
+            </p>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="actual"
+              formControlName="actual"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              Actualmente tengo este cargo
+            </label>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Descripción</span>
+            <textarea
+              class="form-control"
+              id="descripcion"
+              formControlName="descripcion"
+            ></textarea>
+          </div>
+
+          <div *ngIf="Descripcion?.errors && Descripcion?.touched">
+            <p *ngIf="Descripcion?.hasError('required')" class="error">
+              Se requiere escribir una Descripción de las tareas realizadas en
+              el Puesto Laboral.
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="limpiar()"
+          >
+            Salir sin guardar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            Guardar
+          </button>
+<!-- 
+          <input
+            type="file"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
+          <button type="button" (click)="onUpload()">Subir archivo</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- FIN Experiencia Modal -->
+</form>

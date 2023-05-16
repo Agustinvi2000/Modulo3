@@ -1,0 +1,88 @@
+<!-- Sección Acerca de -->
+<section class="profile-description rounded-4">
+  <h2>
+    <div class="row">
+      <div class="col">Acerca de</div>
+
+      <!-- INICIO modal ACERCADE -->
+      <div *ngIf="mostrarEdicion" class="col text-end">
+        <a href="#acercadeModal" class="edicion" data-bs-toggle="modal"
+        (click)="idEdit()"
+        >
+          <i class="fa-solid fa-pencil fa-xs"></i>
+        </a>
+      </div>
+      <!-- FIN modal ACERCADE -->
+    </div>
+  </h2>
+  <p>
+    {{about}}
+  </p>
+</section>
+<!-- FIN Sección Acerca de -->
+
+
+
+<form [formGroup]="form" (ngSubmit)="onEnviar($event)">
+  <!-- Acerca de Modal -->
+  <div
+    class="modal fade"
+    id="acercadeModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="acercadeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="acercadeModalLabel">Acerca de mi</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="limpiar()"
+          ></button> 
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <textarea
+              class="form-control"
+              formControlName="about"
+              id="about"
+            ></textarea>
+          </div>
+          <!-- Gracias al getter que configuramos en el controlador -->
+          <!-- <div
+            *ngIf="Acercade?.errors && Acercade?.touched"
+          >
+            <p *ngIf="Acercade?.hasError('required')" class="error">
+              Se requiere una descripción tuya.
+            </p>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="limpiar()"
+          >
+            Salir sin guardar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN Acerca de Modal -->
+</form>
+

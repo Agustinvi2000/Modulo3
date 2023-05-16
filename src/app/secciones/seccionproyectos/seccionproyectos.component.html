@@ -1,0 +1,145 @@
+<!-- Sección Proyectos -->
+<section class="profile-description rounded-4">
+  <h2>
+    <div class="row">
+      <div class="col">Proyectos</div>
+
+      <!-- INICIO modal PROYECTOS -->
+      <div *ngIf="mostrarEdicion" class="col text-end">
+        <a href="#proyectosModalAdd" data-bs-toggle="modal" class="agregar"
+          ><i class="fa-regular fa-square-plus fa-sm"></i
+        ></a>
+      </div>
+      <!-- FIN modal PROYECTOS -->
+    </div>
+  </h2>
+  <div class="profile-desc-row" *ngFor="let proyecto of proyectos; index as p">
+    <div>
+      <h3>
+        <div class="row">
+          <div class="col">
+            <a [href]="proyecto.url" target="_blank">
+              <!-- Proyecto 1 -->
+              {{ proyecto.titulo }}
+            </a>
+          </div>
+
+          <!-- INICIO modal PROYECTOS -->
+          <div *ngIf="mostrarEdicion" class="col text-end">
+            <button
+              data-bs-target="#proyectosModal"
+              data-bs-toggle="modal"
+              class="btn fa-solid fa-pencil edicion"
+              (click)="idEdit(p)"
+            ></button>
+
+            <button
+              class="btn fa-solid fa-trash borrar"
+              (click)="delete(proyecto.id)"
+            ></button>
+          </div>
+          <!-- FIN modal PROYECTOS --> 
+        </div>
+      </h3>
+      <p>
+        {{ proyecto.descripcion }}
+      </p>
+      <hr />
+    </div>
+  </div>
+</section>
+<!-- FIN Sección Proyectos -->
+
+<form [formGroup]="form" (ngSubmit)="onEnviar($event)">
+  <!-- Proyectos Modal --> 
+  <div
+    class="modal fade"
+    id="proyectosModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="proyectosModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="proyectosModalLabel">Proyecto</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="limpiar()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Nombre del Proyecto</span>
+            <input
+              type="text"
+              class="form-control"
+              id="titulo"
+              formControlName="titulo"
+              placeholder="Nombre del Proyecto"
+            />
+          </div>
+
+          <div *ngIf="NombreProyecto?.errors && NombreProyecto?.touched">
+            <p *ngIf="NombreProyecto?.hasError('required')" class="error">
+              Se requiere escribir el nombre del Proyecto.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">URL del Proyecto</span>
+            <input
+              type="text"
+              class="form-control"
+              id="url"
+              formControlName="url"
+              placeholder="http://www.ejemplo.com"
+            />
+          </div>
+
+          <div *ngIf="URLProyecto?.errors && URLProyecto?.touched">
+            <p class="error">Campo con error.</p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Resumen del proyecto</span>
+            <textarea
+              class="form-control"
+              id="descripcion"
+              formControlName="descripcion"
+            ></textarea>
+          </div>
+
+          <div *ngIf="ResumenProyecto?.errors && ResumenProyecto?.touched">
+            <p *ngIf="ResumenProyecto?.hasError('required')" class="error">
+              Se requiere escribir un resumen que describa el Proyecto.
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="limpiar()"
+          >
+            Salir sin guardar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN Proyectos Modal -->
+</form>

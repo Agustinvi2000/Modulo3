@@ -1,0 +1,223 @@
+<!-- Sección Educación -->
+<section class="profile-description rounded-4">
+  <h2>
+    <div class="row">
+      <div class="col">Educación</div>
+      <!-- INICIO modal EDUCACION -->
+      <div *ngIf="mostrarEdicion" class="col text-end">
+        <a href="#educacionModalAdd" data-bs-toggle="modal" class="agregar"
+          ><i class="fa-regular fa-square-plus fa-sm"></i
+        ></a>
+      </div>
+      <!-- FIN modal EDUCACION -->
+    </div>
+  </h2>
+  <div class="profile-desc-row" *ngFor="let estudio of estudios; index as e">
+    <!-- <img [src]="estudio.logo" /> -->
+    <!-- src="assets/img/images/stanford.png" -->
+    <div>
+      <h3>
+        <div class="row">
+          <div class="col">
+            <!-- Standford University -->
+            {{ estudio.institucion }}
+          </div>
+          <!-- INICIO modal EDUCACION -->
+          <div *ngIf="mostrarEdicion" class="col text-end">
+            <button
+              data-bs-target="#educacionModal"
+              data-bs-toggle="modal"
+              class="btn fa-solid fa-pencil edicion"
+              (click)="idEdit(e)"
+            ></button>
+
+            <button
+              class="btn fa-solid fa-trash borrar"
+              (click)="delete(estudio.id)"
+            ></button>
+          </div>
+          <!-- FIN modal EDUCACION -->
+        </div>
+      </h3>
+      <b>
+        {{ estudio.titulo }}
+      </b>
+      <b>
+        {{ estudio.inicio | date : "MM-yyyy" }} -
+        {{ estudio.fin ? (estudio.fin | date : "MM-yyyy") : "Presente" }}
+        &middot; {{ getDiferenciaAnios(e) }} años
+      </b>
+      <hr />
+    </div>
+  </div>
+</section>
+<!-- FIN Sección Educación -->
+
+
+
+
+<form [formGroup]="form" (ngSubmit)="onEnviar($event)">
+  <!-- Educación Modal -->
+  <div
+    class="modal fade"
+    id="educacionModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="educacionModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="educacionModalLabel">Educación</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="limpiar()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <!-- <input type="hidden" formControlName="id" id="id" /> -->
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Institución educativa</span>
+            <input
+              type="text"
+              class="form-control"
+              id="institucion"
+              formControlName="institucion"
+              placeholder="P. ej. Universidad de Buenos Aires"
+              [ngClass]="{
+                'is-invalid': Institucion?.errors && Institucion?.touched,
+                'is-valid': !Institucion?.errors && Institucion?.touched
+              }"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="Institucion?.errors && Institucion?.touched"
+            >
+              <p *ngIf="Institucion?.hasError('required')" class="error">
+                Se requiere escribir una Insitución Educativa.
+              </p>
+            </div>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Título</span>
+            <input
+              type="text"
+              class="form-control"
+              id="titulo"
+              formControlName="titulo"
+              placeholder="P. ej. Grado"
+            />
+            <div *ngIf="Titulo?.errors && Titulo?.touched">
+              <p *ngIf="Titulo?.hasError('required')" class="error">
+                Se requiere escribir el Título otorgado por la Institucion
+                Educativa informada en el texto anterior.
+              </p>
+            </div>
+          </div>
+<!--           
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Disciplina académica</span>
+            <input
+              type="text"
+              class="form-control"
+              id="titulo"
+              formControlName="titulo"
+              placeholder="P. ej. Administración"
+            />
+          </div>
+          <div *ngIf="Titulo?.errors && Titulo?.touched">
+            <p *ngIf="Titulo?.hasError('required')" class="error">
+              Se requiere escribir la Disciplina asociada al Título informado en
+              el texto anterior.
+            </p>
+          </div> -->
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Fecha de inicio</span>
+            <input
+              type="date"
+              class="form-control"
+              id="inicio"
+              formControlName="inicio"
+            />
+
+            <div
+              *ngIf="
+                FechaInicio?.invalid &&
+                (FechaInicio?.dirty || FechaInicio?.touched)
+              "
+            >
+              <p *ngIf="FechaInicio?.hasError('required')" class="error">
+                La fecha de inicio es requerida.
+              </p>
+
+              <p
+                *ngIf="FechaInicio?.hasError('fechaInicioInvalida')"
+                class="error"
+              >
+                La fecha de inicio no puede ser mayor que la fecha actual
+              </p>
+            </div>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text"
+              >Fecha de finalización (o fecha prevista)</span
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="fin"
+              formControlName="fin"
+            />
+
+            <div
+              *ngIf="
+                FechaFin?.invalid && (FechaFin?.dirty || FechaFin?.touched)
+              "
+            >
+              <p *ngIf="FechaFin?.hasError('required')" class="error">
+                La fecha de inicio es requerida.
+              </p>
+
+              <p *ngIf="FechaFin?.hasError('fechasInvalidas')" class="error">
+                La fecha de fin no puede ser menor que la fecha de inicio.
+              </p>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="limpiar()"
+          >
+            Salir sin guardar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            Guardar
+          </button>
+
+          <!-- <input
+            type="file"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
+          <button type="button" (click)="onUpload()">Subir archivo</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN Educación Modal -->
+</form>

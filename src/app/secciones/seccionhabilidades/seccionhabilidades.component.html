@@ -1,0 +1,166 @@
+<!-- Sección Habilidades -->
+<section class="profile-description rounded-4">
+  <h2>
+    <div class="row">
+      <div class="col">Hard Skills & Soft Skills</div>
+
+      <!-- INICIO modal HABILIDADES -->
+      <div *ngIf="mostrarEdicion" class="col text-end">
+        <a href="#habilidadesModalAdd" data-bs-toggle="modal" class="agregar"
+          ><i class="fa-regular fa-square-plus fa-sm"></i
+        ></a>
+      </div>
+      <!-- FIN modal HABILIDADES -->
+    </div>
+  </h2>
+  <div *ngFor="let habilidad of habilidades; index as h">
+    <div class="profile-desc-row">
+      <div>
+        <h3>
+          <div class="row">
+            <div class="col">
+              <!-- HTML -->
+              {{ habilidad.nombre }}
+            </div>
+
+            <!-- INICIO modal HABILIDADES -->
+            <div *ngIf="mostrarEdicion" class="col text-end">
+              <!-- <a href="#habilidadesModal" class="edicion" data-bs-toggle="modal">
+                                    <i class="fa-solid fa-pencil fa-sm"></i>
+                                </a>
+                                <a href="#" class="borrar"><i class="fa-solid fa-trash fa-sm"></i></a> -->
+              <button
+                data-bs-target="#habilidadesModal"
+                data-bs-toggle="modal"
+                class="btn fa-solid fa-pencil edicion"
+                (click)="idEdit(h)"
+              ></button>
+
+              <button
+                class="btn fa-solid fa-trash borrar"
+                (click)="delete(habilidad.id)"
+              ></button>
+            </div>
+            <!-- FIN modal HABILIDADES -->
+          </div>
+        </h3>
+      </div>
+    </div>
+    <div class="progress" role="progressbar">
+      <div
+        class="progress-bar progress-bar-striped progress-bar-animated"
+        [style.width.%]="habilidad.porcentaje"
+      >
+        <!-- style="width: 100%" -->
+        <!-- 100% -->
+        {{ habilidad.porcentaje }}%
+      </div>
+    </div>
+  </div>
+</section>
+<!-- FIN Sección Habilidades -->
+
+<form [formGroup]="form" (ngSubmit)="onEnviar($event)">
+  <!-- Habilidades Modal -->
+  <div
+    class="modal fade"
+    id="habilidadesModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="habilidadesModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="habilidadesModalLabel">
+            Hard Skills & Soft Skills
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="limpiar()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Habilidad</span>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              formControlName="nombre"
+              placeholder="P. ej. HTML, Inglés, Liderazgo, Negociación, etc"
+              [ngClass]="{
+                'is-invalid': Habilidad?.errors && Habilidad?.touched,
+                'is-valid': !Habilidad?.errors && Habilidad?.touched
+              }"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="Habilidad?.errors && Habilidad?.touched"
+            >
+              <p *ngIf="Habilidad?.hasError('required')" class="error">
+                Se requiere escribir una habilidad.
+              </p>
+            </div>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Grado de avance</span>
+            <select
+              class="form-select form-select-sm"
+              id="porcentaje"
+              formControlName="porcentaje"
+              [ngClass]="{
+                'is-invalid': GradoAvance?.errors && GradoAvance?.touched,
+                'is-valid': !GradoAvance?.errors && GradoAvance?.touched
+              }"
+            >
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option value="10">10%</option>
+              <option value="20">20%</option>
+              <option value="30">30%</option>
+              <option value="40">40%</option>
+              <option value="50">50%</option>
+              <option value="60">60%</option>
+              <option value="70">70%</option>
+              <option value="80">80%</option>
+              <option value="90">90%</option>
+              <option value="100">100%</option>
+            </select>
+            <div
+              class="invalid-feedback"
+              *ngIf="GradoAvance?.errors && GradoAvance?.touched"
+            >
+              <p *ngIf="GradoAvance?.hasError('required')" class="error">
+                Se requiere seleccionar el grado de avance de la habilidad.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="limpiar()"
+          >
+            Salir sin guardar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN Habilidades Modal -->
+</form>

@@ -1,0 +1,330 @@
+<!-- Banner y Presentación -->
+<section class="profile-container rounded-4">
+  <img [src]="'assets/img/'+banner" class="rounded-4" width="100%" />
+  <!-- src="assets/img/banner.jpg"                        -->
+  <div class="profile-container-inner">
+    <div class="row">
+      <div class="col"> 
+        <img [src]="'assets/img/'+foto" class="profile-pic" />
+        <!-- src="assets/img/Foto Perfil.jpg" -->
+        <!-- Inicio modal foto perfil -->
+        
+        <!-- <a
+          *ngIf="mostrarEdicion"
+          class=""
+          data-bs-toggle="collapse"
+          href="#collapseFotoPerfil"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
+          <i class="fa-solid fa-pencil fa-lg"></i>
+        </a>
+        <div *ngIf="mostrarEdicion" class="collapse" id="collapseFotoPerfil">
+          <div class="card card-body"> 
+
+
+             <div class="input-group">
+              <input
+                type="file"
+                class="form-control"
+                id="foto"
+                #fotoPerfilInput
+                aria-describedby="FileAddonFotoPerfil"
+                aria-label="Upload"
+                (change)="onFileSelected($event)"
+              /> 
+              
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="FileAddonFotoPerfil"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFotoPerfil"
+                [disabled]="!isValidImage()"
+              >
+                Guardar
+              </button> 
+            
+            </div>
+            <div *ngIf="!isValidImage()" class="text-danger">
+              Selecciona un archivo de imagen válido (.jpg, .jpeg o .png).
+            </div>
+          </div>
+        </div> -->
+        <!-- FIN modal foto perfil -->
+
+        <!-- <a href="#fotoperfilModal" class="edicion" data-bs-toggle="modal">
+        <i class="fa-solid fa-pencil fa-lg"></i>
+    </a> -->
+      </div>
+
+      <!-- Inicio modal banner -->
+      <!-- <div *ngIf="mostrarEdicion" class="col text-end edicionBanner">
+        <a
+          data-bs-toggle="collapse"
+          href="#collapseBanner"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
+          <i class="fa-solid fa-pencil fa-lg"></i>
+        </a>
+        <div class="collapse" id="collapseBanner">
+          <div class="card card-body">
+
+            <div class="input-group">
+              <input
+                type="file"
+                class="form-control"
+                id="banner"
+                #fileBannerInput
+                aria-describedby="FileAddonBanner"
+                aria-label="Upload"
+                (change)="onFileSelectedBanner($event)"
+              />
+
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="FileAddonBanner"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseBanner"
+                [disabled]="!isValidImageBanner()"
+              >
+                Guardar
+              </button>
+
+            </div>
+            <div *ngIf="!isValidImageBanner()" class="text-danger">
+              Selecciona un archivo de imagen válido (.jpg, .jpeg o .png).
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- FIN modal banner -->
+    </div>
+    <h1>
+      <div class="row">
+        <div class="col">
+          <!-- Rayan Walton  -->
+          {{ nombre }} {{ apellido }}
+        </div>
+
+        <!-- INICIO modal presentacion -->
+        <div *ngIf="mostrarEdicion" class="col text-end">
+          <a href="#presentacionModal" class="edicion" data-bs-toggle="modal" (click)="idEdit()">
+            <i class="fa-solid fa-pencil fa-2xs"></i>
+          </a>
+        </div>
+        <!-- FIN modal presentacion -->
+      </div>
+    </h1>
+    <b>
+      {{ titular }}
+    </b>
+    <p>
+      {{ ubicacion }} &middot; TE: {{telefono}}
+      <!-- <a [href]="#">Contact info</a> -->
+    </p>
+  </div>
+</section>
+<!-- FIN Banner y Presentación -->
+
+
+
+
+
+<form [formGroup]="form" (ngSubmit)="onEnviar($event)">
+  <!-- Presentación Modal -->
+  <div
+    class="modal fade"
+    id="presentacionModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="presentacionModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="presentacionModalLabel">
+            Encabezado
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="limpiar()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Nombre/s</span>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              formControlName="nombre"
+              placeholder="Nombre/s"
+            />
+          </div>
+          <div *ngIf="Nombre?.errors && Nombre?.touched">
+            <p *ngIf="Nombre?.hasError('required')" class="error">
+              Campo requerido.
+            </p>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Apellido/s</span>
+            <input
+              type="text"
+              class="form-control"
+              id="apellido"
+              formControlName="apellido"
+              placeholder="Apellido/s"
+            />
+          </div>
+          <div *ngIf="Apellido?.errors && Apellido?.touched">
+            <p *ngIf="Apellido?.hasError('required')" class="error">
+              Campo requerido.
+            </p>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Fecha de Nacimiento</span>
+            <input
+              type="date"
+              class="form-control"
+              id="nacimiento"
+              formControlName="nacimiento"
+            />
+          </div>
+          <div *ngIf="Nacimiento?.errors && Nacimiento?.touched">
+            <p *ngIf="Nacimiento?.hasError('required')" class="error">
+              Campo requerido.
+            </p>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Titular</span>
+            <input
+              type="text"
+              class="form-control"
+              id="titular"
+              formControlName="titular"
+              placeholder="Titular"
+            />
+          </div>
+          <div *ngIf="Titular?.errors && Titular?.touched">
+            <p *ngIf="Titular?.hasError('required')" class="error">
+              Campo requerido.
+            </p>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Ubicación</span>
+            <input
+              type="text"
+              class="form-control"
+              id="ubicacion"
+              formControlName="ubicacion"
+              placeholder="Ciudad, Provincia, País"
+            />
+          </div>
+          <div *ngIf="Ubicacion?.errors && Ubicacion?.touched">
+            <p *ngIf="Ubicacion?.hasError('required')" class="error">
+              Campo requerido.
+            </p>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Teléfono</span>
+            <input
+              class="form-control"
+              type="text"
+              id="telefono"
+              formControlName="telefono"
+              placeholder="+(codigo país)(codigo área)(número telefónico)"
+            />
+          </div>
+          <div *ngIf="Telefono?.errors && Telefono?.touched">
+            <p *ngIf="Telefono?.hasError('required')" class="error">
+              Campo requerido.
+            </p>
+          </div> 
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Documento Banner</span>
+            <span class="input-group-text">assets/img/</span>
+            <input
+              class="form-control"
+              type="text"
+              id="banner"
+              formControlName="banner"
+              placeholder="banner.jpg"
+            />
+          </div>
+          <div *ngIf="Banner?.errors && Banner?.touched">
+            <p *ngIf="Banner?.hasError('required')" class="error">
+              Campo requerido.
+            </p>
+          </div> 
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Documento Foto Perfil</span>
+            <span class="input-group-text">assets/img/</span>
+            <input
+              class="form-control"
+              type="text"
+              id="foto"
+              formControlName="foto"
+              placeholder="foto_perfil.jpg"
+            />
+          </div>
+          <div *ngIf="Foto?.errors && Foto?.touched">
+            <p *ngIf="Foto?.hasError('required')" class="error">
+              Campo requerido.
+            </p>
+          </div> 
+ 
+          <!-- <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Email</span>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              formControlName="email"
+              placeholder="email@dominio.com"
+            />
+          </div>
+          <div *ngIf="Email?.errors && Email?.touched">
+            <p *ngIf="Email?.hasError('required')" class="error">
+              Campo requerido.
+            </p>
+          </div>
+          <div *ngIf="Email?.errors && Email?.touched">
+            <p *ngIf="Email?.hasError('email')" class="error">
+              El formato del email escrito es incorrecto.
+            </p>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="limpiar()"
+          >
+            Salir sin guardar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN Presentación Modal -->
+</form>

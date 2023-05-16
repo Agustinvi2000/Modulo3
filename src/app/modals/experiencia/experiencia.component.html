@@ -1,0 +1,263 @@
+<form [formGroup]="form" (ngSubmit)="onEnviar($event)">
+  <!-- Experiencia Modal -->
+  <div
+    class="modal fade"
+    id="experienciaModalAdd"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="experienciaModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="experienciaModalLabel">
+            Experiencia Laboral
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="limpiar()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <!-- <input type="hidden" formControlName="idAdd" id="idAdd" /> -->
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Cargo</span>
+            <input
+              type="text"
+              class="form-control"
+              id="puestoAdd"
+              placeholder="Nombre del puesto laboral"
+              formControlName="puestoAdd"
+            />
+            <!-- [ngClass]="{'is-invalid': Cargo?.errors && Cargo?.touched, 'is-valid':!Cargo?.errors && Cargo?.touched}" -->
+          </div>
+
+          <div *ngIf="Cargo?.errors && Cargo?.touched">
+            <p *ngIf="Cargo?.hasError('required')" class="error">
+              Se requiere escribir un Puesto Laboral.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Tipo de empleo</span>
+            <select
+              class="form-select form-select-sm"
+              id="tipo_empleoAdd"
+              formControlName="tipo_empleoAdd"
+            >
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option value="Jornada completa">Jornada completa</option>
+              <option value="Jornada parcial">Jornada parcial</option>
+              <option value="Autónomo">Autónomo</option>
+              <option value="Profesional independiente">
+                Profesional independiente
+              </option>
+              <option value="Contrato temporal">Contrato temporal</option>
+              <option value="Contrato de prácticas">
+                Contrato de prácticas
+              </option>
+              <option value="Contrato de formación">
+                Contrato de formación
+              </option>
+              <option value="Temporal">Temporal</option>
+            </select>
+          </div>
+
+          <div *ngIf="TipoEmpleo?.errors && TipoEmpleo?.touched">
+            <p *ngIf="TipoEmpleo?.hasError('required')" class="error">
+              Se requiere seleccionar un tipo de empleo.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Nombre de la empresa</span>
+            <input
+              type="text"
+              class="form-control"
+              id="empresaAdd"
+              placeholder="Nombre de la empresa"
+              formControlName="empresaAdd"
+            />
+          </div>
+
+          <div *ngIf="NombreEmpresa?.errors && NombreEmpresa?.touched">
+            <p *ngIf="NombreEmpresa?.hasError('required')" class="error">
+              Se requiere escribir el Nombre de la Empresa.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">URL de la empresa</span>
+            <span class="input-group-text">http://</span>
+            <input
+              type="text"
+              class="form-control"
+              id="urlAdd"
+              placeholder="www.empresa.com"
+              formControlName="urlAdd"
+            />
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Ubicación</span>
+            <input
+              type="text"
+              class="form-control"
+              id="ubicacionAdd"
+              placeholder="Ciudad, Provincia, País"
+              formControlName="ubicacionAdd"
+            />
+          </div>
+
+          <div *ngIf="Ubicacion?.errors && Ubicacion?.touched">
+            <p *ngIf="Ubicacion?.hasError('required')" class="error">
+              Se requiere escribir la Ubicación principal del Puesto Laboral.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Tipo de ubicación</span>
+            <select
+              class="form-select form-select-sm"
+              id="tipo_ubicacionAdd"
+              formControlName="tipo_ubicacionAdd"
+            >
+              <option value="" disabled selected>Selecciona una opción</option>
+              <!-- <option value="1">Presencial</option>
+                        <option value="2">Híbrido</option>
+                        <option value="3">En remoto</option> -->
+
+              <option value="Presencial">Presencial</option>
+              <option value="Híbrido">Híbrido</option>
+              <option value="En remoto">En remoto</option>
+            </select>
+          </div>
+
+          <div *ngIf="TipoUbicacion?.errors && TipoUbicacion?.touched">
+            <p *ngIf="TipoUbicacion?.hasError('required')" class="error">
+              Se requiere seleccionar el tipo de Ubicación.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Fecha de inicio</span>
+            <input
+              type="date"
+              class="form-control"
+              id="inicioAdd"
+              formControlName="inicioAdd"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              FechaInicio?.invalid &&
+              (FechaInicio?.dirty || FechaInicio?.touched)
+            "
+          >
+            <p *ngIf="FechaInicio?.hasError('required')" class="error">
+              La fecha de inicio es requerida.
+            </p>
+
+            <p
+              *ngIf="FechaInicio?.hasError('fechaInicioInvalida')"
+              class="error"
+            >
+              La fecha de inicio no puede ser mayor que la fecha actual
+            </p>
+          </div>
+
+          <div
+            class="input-group input-group-sm mb-3"
+            *ngIf="!CargoActual?.value"
+          >
+            <span class="input-group-text">Fecha de finalización</span>
+            <input
+              type="date"
+              class="form-control"
+              id="finAdd"
+              formControlName="finAdd"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              CargoActual?.valid &&
+              FechaFin?.invalid &&
+              (FechaFin?.dirty || FechaFin?.touched)
+            "
+          >
+            <p *ngIf="FechaFin?.hasError('required')" class="error">
+              La fecha de fin es requerida o indicar si es el trabajo actual.
+            </p>
+
+            <p *ngIf="FechaFin?.hasError('fechasInvalidas')" class="error">
+              La fecha de fin no puede ser menor que la fecha de inicio.
+            </p>
+
+            <p *ngIf="FechaFin?.hasError('fechaFinInvalida')" class="error">
+              La fecha de fin no puede ser mayor que la fecha actual.
+            </p>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="actualAdd"
+              formControlName="actualAdd"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              Actualmente tengo este cargo
+            </label>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Descripción</span>
+            <textarea
+              class="form-control"
+              id="descripcionAdd"
+              formControlName="descripcionAdd"
+            ></textarea>
+          </div>
+
+          <div *ngIf="Descripcion?.errors && Descripcion?.touched">
+            <p *ngIf="Descripcion?.hasError('required')" class="error">
+              Se requiere escribir una Descripción de las tareas realizadas en
+              el Puesto Laboral.
+            </p>
+          </div>
+
+          <!-- <input
+            type="hidden"
+            formControlName="persona_idAdd"
+            id="persona_idAdd"
+          /> -->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="limpiar()"
+          >
+            Salir sin guardar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN Experiencia Modal -->
+</form>

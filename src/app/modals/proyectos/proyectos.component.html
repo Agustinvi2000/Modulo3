@@ -1,0 +1,93 @@
+<form [formGroup]="form" (ngSubmit)="onEnviar($event)">
+  <!-- Proyectos Modal -->
+  <div
+    class="modal fade"
+    id="proyectosModalAdd"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="proyectosModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="proyectosModalLabel">Proyecto</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="limpiar()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Nombre del Proyecto</span>
+            <input
+              type="text"
+              class="form-control"
+              id="tituloAdd"
+              formControlName="tituloAdd"
+              placeholder="Nombre del Proyecto"
+            />
+          </div>
+
+          <div *ngIf="NombreProyecto?.errors && NombreProyecto?.touched">
+            <p *ngIf="NombreProyecto?.hasError('required')" class="error">
+              Se requiere escribir el nombre del Proyecto.
+            </p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">URL del Proyecto</span>
+            <input
+              type="text"
+              class="form-control"
+              id="urlAdd"
+              formControlName="urlAdd"
+              placeholder="http://www.ejemplo.com"
+            />
+          </div>
+
+          <div *ngIf="URLProyecto?.errors && URLProyecto?.touched">
+            <p class="error">Campo con error.</p>
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Resumen del proyecto</span>
+            <textarea
+              class="form-control"
+              id="descripcionAdd"
+              formControlName="descripcionAdd"
+            ></textarea>
+          </div>
+
+          <div *ngIf="ResumenProyecto?.errors && ResumenProyecto?.touched">
+            <p *ngIf="ResumenProyecto?.hasError('required')" class="error">
+              Se requiere escribir un resumen que describa el Proyecto.
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="limpiar()"
+          >
+            Salir sin guardar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN Proyectos Modal -->
+</form>
