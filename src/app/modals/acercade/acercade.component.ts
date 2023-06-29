@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Persona } from 'src/app/model/persona';
 import { SeccionbannerComponent } from 'src/app/secciones/seccionbanner/seccionbanner.component';
 import { PersonaService } from 'src/app/servicios/persona.service';
-import { TokenService } from 'src/app/servicios/token.service';
+// import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-acercade',
@@ -26,12 +26,12 @@ export class AcercadeComponent implements OnInit {
   ubicacion!: string;
   telefono!: string;
 
-  isAdmin = false;
+  // isAdmin = false;
 
   // Inyectar en el constructor el formBuilder
   constructor(private formBuilder: FormBuilder,
     private sPersona: PersonaService,
-    private tokenService: TokenService,
+    // private tokenService: TokenService,
     // private banner: SeccionbannerComponent
     ){ 
     ///Creamos el grupo de controles para el formulario de login
@@ -58,7 +58,7 @@ export class AcercadeComponent implements OnInit {
 
   ngOnInit() {
     this.cargarDatos();
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.isAdmin = this.tokenService.isAdmin();
   }
 
   get AcercadeDescripcion(){

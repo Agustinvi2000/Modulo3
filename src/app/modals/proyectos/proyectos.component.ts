@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Proyectos } from 'src/app/model/proyectos';
 import { ProyectosService } from 'src/app/servicios/proyectos.service';
-import { TokenService } from 'src/app/servicios/token.service';
+// import { TokenService } from 'src/app/servicios/token.service';
 
 
 
@@ -14,12 +14,12 @@ import { TokenService } from 'src/app/servicios/token.service';
 export class ProyectosComponent implements OnInit{
   form: FormGroup;
   persona_idAdd: number = 1;
-  isAdmin = false;
+  // isAdmin = false;
 
   // Inyectar en el constructor el formBuilder
   constructor(private formBuilder: FormBuilder, 
     private sProyectos:ProyectosService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
     ) { 
       this.form= this.formBuilder.group({
         tituloAdd:['',Validators.required],
@@ -31,7 +31,7 @@ export class ProyectosComponent implements OnInit{
 
 
   ngOnInit() {
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.isAdmin = this.tokenService.isAdmin();
   }
 
   get NombreProyecto(){

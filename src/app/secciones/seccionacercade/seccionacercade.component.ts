@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Persona } from 'src/app/model/persona';
 import { DatosService } from 'src/app/servicios/datos.service';
 import { PersonaService } from 'src/app/servicios/persona.service';
-import { TokenService } from 'src/app/servicios/token.service';
+// import { TokenService } from 'src/app/servicios/token.service';
 import { SeccionbannerComponent } from '../../secciones/seccionbanner/seccionbanner.component';
 
 
@@ -28,7 +28,7 @@ export class SeccionacercadeComponent implements OnInit {
 
   //roles: string[];
   // roles: string[] = [];
-  isAdmin = false;
+  // isAdmin = false;
 
   id: number | undefined;
   about!: string;
@@ -44,7 +44,7 @@ export class SeccionacercadeComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private sPersona: PersonaService,
-    private tokenService: TokenService,
+    // private tokenService: TokenService,
     // private banner: SeccionbannerComponent
   ) {
     this.form = this.formBuilder.group({
@@ -70,7 +70,7 @@ export class SeccionacercadeComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarDatos();
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.isAdmin = this.tokenService.isAdmin();
 
     // console.log(this.id + " - " +this.about+ " - " +this.banner+ " - " +this.foto+ " - " +this.nombre+ " - " +this.apellido+ " - " +this.nacimiento+ " - " +this.titular+ " - " +this.ubicacion+ " - " +this.telefono);
   }

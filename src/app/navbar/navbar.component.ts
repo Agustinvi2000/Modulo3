@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DatosService } from 'src/app/servicios/datos.service';
-import { TokenService } from '../servicios/token.service';
+// import { TokenService } from '../servicios/token.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RedesService } from '../servicios/redes.service';
 import { Redes } from '../model/redes';
@@ -19,8 +19,8 @@ export class NavbarComponent implements OnInit {
 
   redes: Redes[]=[]; 
 
-  isLogged = false;
-  isAdmin = false;
+  // isLogged = false;
+  // isAdmin = false;
 
   persona_id: number = 1;
   id: number | undefined;
@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private sRedes: RedesService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
   ) {
     this.form = this.formBuilder.group({
       icono: ['', Validators.required],
@@ -44,21 +44,21 @@ export class NavbarComponent implements OnInit {
     //   this.redes = data.networks;
     // });
     this.cargarRedes();
-    this.isLogged = this.tokenService.isLogged();
-    this.isAdmin = this.tokenService.isAdmin();
-    this.isLogin()
+    // this.isLogged = this.tokenService.isLogged();
+    // this.isAdmin = this.tokenService.isAdmin();
+    // this.isLogin()
   }
 
-  public isLogin(): boolean{
-    let currentPath = window.location.pathname;
-    if(currentPath === '/login' || currentPath === '/registro' || currentPath === '/sendemail') {
-      return true;
-    }
-    return false;
-  }
+  // public isLogin(): boolean{
+  //   let currentPath = window.location.pathname;
+  //   if(currentPath === '/login' || currentPath === '/registro' || currentPath === '/sendemail') {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   onLogOut(): void {
-    this.tokenService.logOut();
+    // this.tokenService.logOut();
   }
 
 

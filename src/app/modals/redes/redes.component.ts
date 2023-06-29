@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RedesService } from 'src/app/servicios/redes.service';
-import { TokenService } from 'src/app/servicios/token.service';
+// import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-redes',
@@ -12,7 +12,7 @@ export class RedesComponent implements OnInit {
   form: FormGroup;
   // validateLinkedIn = false;
   // validateGithub = false;
-  isAdmin = false;
+  // isAdmin = false;
   persona_id: number = 1;
   id: number | undefined;
   icono!: string;
@@ -23,7 +23,7 @@ export class RedesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private sRedes: RedesService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
   ) {
     ///Creamos el grupo de controles para el formulario de login
 
@@ -34,7 +34,7 @@ export class RedesComponent implements OnInit {
   }
 
   ngOnInit() {  
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.isAdmin = this.tokenService.isAdmin();
   }
 
   cargarRedes():void{

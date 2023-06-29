@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from '../servicios/token.service';
+// import { TokenService } from '../servicios/token.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,15 +8,15 @@ import { TokenService } from '../servicios/token.service';
 })
 export class DashboardComponent implements OnInit {
 
-  isLogged = false;
-  isAdmin = false;
+  // isLogged = false;
+  // isAdmin = false;
 
   constructor(
-    private tokenService: TokenService
+    // private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
-  this.isLogged = this.tokenService.isLogged();
-  this.isAdmin = this.tokenService.isAdmin();
+  // this.isLogged = this.tokenService.isLogged();
+  // this.isAdmin = this.tokenService.isAdmin();
   }
 }

@@ -4,8 +4,10 @@
     <div class="container-fluid">
       <img class="logo" src="assets/img/Logo AP.png" />
       <div class="d-flex">
-        <div class="navbar" *ngIf="isLogged">
-          <div class="px-2" *ngIf="isAdmin && mostrarEdicion">
+        <!-- <div class="navbar" *ngIf="isLogged">
+          <div class="px-2" *ngIf="isAdmin && mostrarEdicion"> -->
+        <div class="navbar">
+          <div class="px-2" *ngIf="mostrarEdicion">            
             <button
                 data-bs-target="#redesModal"
                 data-bs-toggle="modal"
@@ -22,26 +24,30 @@
             </a>
           </div>
         </div>
-        <div *ngIf="!isLogin && !isLogged">
-          <button type="button" class="btn" routerLink="/login">
+        <!-- <div *ngIf="!isLogin && !isLogged"> -->
+        <div>
+          <!-- <button type="button" class="btn" routerLink="/login">
             <i class="fa-solid fa-right-to-bracket fa-xl colorRedes"></i>
-          </button>
+          </button> -->
         </div>
-        <div *ngIf="isLogged && isAdmin && mostrarEdicion">
+        <!-- <div *ngIf="isLogged && isAdmin && mostrarEdicion"> -->
+        <div *ngIf="mostrarEdicion">
           <button type="button" class="btn" routerLink="/">
             <i class="fa-solid fa-user-lock fa-xl colorRedes"></i>
           </button>
         </div>
-        <div *ngIf="isLogged && isAdmin && !mostrarEdicion">
-          <!-- <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal"> -->
-          <button type="button" class="btn" routerLink="/dashboard">
+        <!-- <div *ngIf="isLogged && isAdmin && !mostrarEdicion"> -->
+        <div *ngIf="!mostrarEdicion">
+          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">
+          <!-- <button type="button" class="btn" routerLink="/dashboard"> -->
             <i class="fa-solid fa-user fa-xl colorRedes"></i>
           </button>
         </div>
-        <button *ngIf="isLogged" class="btn" (click)="onLogOut()" type="reset">
+        <!-- <button *ngIf="isLogged" class="btn" (click)="onLogOut()" type="reset"> -->
+        <!-- <button class="btn" (click)="onLogOut()" type="reset">           -->
           <!-- <i class="fas fa-sign-in-alt"></i>  -->
-          <i class="fas fa-door-open fa-xl colorRedes"></i>
-        </button>
+          <!-- <i class="fas fa-door-open fa-xl colorRedes"></i>
+        </button> -->
       </div>
     </div>
   </nav>
@@ -54,6 +60,7 @@
 
 
 
+<app-login></app-login>
 
 
 

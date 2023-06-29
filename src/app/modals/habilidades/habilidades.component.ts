@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HabilidadService } from 'src/app/servicios/habilidad.service';
 import { Habilidad } from 'src/app/model/habilidad';
-import { TokenService } from 'src/app/servicios/token.service';
+// import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-habilidades',
@@ -12,7 +12,7 @@ import { TokenService } from 'src/app/servicios/token.service';
 export class HabilidadesComponent implements OnInit {
   form: FormGroup;
   persona_idAdd: number = 1;
-  isAdmin = false;
+  // isAdmin = false;
 
 
 
@@ -20,7 +20,7 @@ export class HabilidadesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private sHabilidad: HabilidadService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
   ) {
     ///Creamos el grupo de controles para el formulario de login
 
@@ -32,7 +32,7 @@ export class HabilidadesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.isAdmin = this.tokenService.isAdmin();
   }
 
   get Habilidad() {

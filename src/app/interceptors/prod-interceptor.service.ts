@@ -1,57 +1,57 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, concatMap, throwError } from 'rxjs';
-import { TokenService } from '../servicios/token.service';
+// import { TokenService } from '../servicios/token.service';
 
-import { ToastrService } from 'ngx-toastr';
-import { JwtDto } from '../model/jwt-dto';
-import { AuthService } from '../servicios/auth.service';
+// import { ToastrService } from 'ngx-toastr';
+// import { JwtDto } from '../model/jwt-dto';
+// import { AuthService } from '../servicios/auth.service';
 
 
-const AUTHORIZATION = 'Authorization';
+// const AUTHORIZATION = 'Authorization';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ProdInterceptorService implements HttpInterceptor {
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class ProdInterceptorService implements HttpInterceptor {
 
-  constructor(
-    private tokenService: TokenService,
-    private authService: AuthService
-  ) { }
+  // constructor(
+    // private tokenService: TokenService,
+    // private authService: AuthService
+  // ) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!this.tokenService.isLogged()) {
-      return next.handle(req);
-    }
+    // if (!this.tokenService.isLogged()) {
+    //   return next.handle(req);
+    // }
 
-    let intReq = req;
-    const token = this.tokenService.getToken();
+    // let intReq = req;
+    // const token = this.tokenService.getToken();
 
-    intReq = this.addToken(req, token);
+    // intReq = this.addToken(req, token);
 
-    return next.handle(intReq).pipe(catchError((err: HttpErrorResponse) => {
-      if (err.status === 401) {
-        const dto: JwtDto = new JwtDto(this.tokenService.getToken());
-        return this.authService.refresh(dto).pipe(concatMap((data: any) => {
-          console.log('refreshing....');
-          this.tokenService.setToken(data.token);
-          intReq = this.addToken(req, data.token);
-          return next.handle(intReq);
-        }));
-      } else if(err.status === 403){
-        this.tokenService.logOut();
-        return throwError(err);
-      } else {
-        return throwError(err);
-      }
-    }));
-  }
+    // return next.handle(intReq).pipe(catchError((err: HttpErrorResponse) => {
+  //     if (err.status === 401) {
+  //       const dto: JwtDto = new JwtDto(this.tokenService.getToken());
+  //       return this.authService.refresh(dto).pipe(concatMap((data: any) => {
+  //         console.log('refreshing....');
+  //         this.tokenService.setToken(data.token);
+  //         intReq = this.addToken(req, data.token);
+  //         return next.handle(intReq);
+  //       }));
+  //     } else if(err.status === 403){
+  //       this.tokenService.logOut();
+  //       return throwError(err);
+  //     } else {
+  //       return throwError(err);
+  //     }
+  //   }));
+  // }
 
-  private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
-    return req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
-  }
-}
+  // private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+  //   return req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
+//   }
+// }
 
-export const interceptorProvider = [{ provide: HTTP_INTERCEPTORS, useClass: ProdInterceptorService, multi: true }];
+// export const interceptorProvider = [{ provide: HTTP_INTERCEPTORS, useClass: ProdInterceptorService, multi: true }];

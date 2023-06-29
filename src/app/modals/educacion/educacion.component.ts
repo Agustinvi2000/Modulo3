@@ -11,7 +11,7 @@ import {
 // importamos las librerias de formulario que vamos a necesitar
 import { Educacion } from 'src/app/model/educacion';
 import { EducacionService } from 'src/app/servicios/educacion.service';
-import { TokenService } from 'src/app/servicios/token.service';
+// import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-educacion',
@@ -22,14 +22,14 @@ export class EducacionComponent implements OnInit {
   form: FormGroup;
   persona_idAdd: number = 1;
   selectedFile: File | null;
-  isAdmin = false;
+  // isAdmin = false;
 
 
   // Inyectar en el constructor el formBuilder
   constructor(
     private formBuilder: FormBuilder,
     private sEducacion: EducacionService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
   ) {
     ///Creamos el grupo de controles para el formulario de login
 
@@ -91,7 +91,8 @@ export class EducacionComponent implements OnInit {
     this.selectedFile = null;
   }
 
-  ngOnInit() {this.isAdmin = this.tokenService.isAdmin();
+  ngOnInit() {
+    // this.isAdmin = this.tokenService.isAdmin();
   }
 
   get Institucion() {

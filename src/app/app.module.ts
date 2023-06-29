@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { interceptorProvider } from './interceptors/prod-interceptor.service';
+// import { interceptorProvider } from './interceptors/prod-interceptor.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -31,13 +31,13 @@ import { SeccionproyectosComponent } from './secciones/seccionproyectos/seccionp
 // external
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-//import { LoginComponent } from './modals/login/login.component';
-import { LoginComponent } from './auth/login.component';
-import { RegistroComponent } from './auth/registro.component';
+import { LoginComponent } from './modals/login/login.component';
+// import { LoginComponent } from './auth/login.component';
+// import { RegistroComponent } from './auth/registro.component';
 import { MenuComponent } from './menu/menu.component';
 import { IndexComponent } from './index/index.component';
-import { SendEmailComponent } from './change-password/send-email.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+// import { SendEmailComponent } from './change-password/send-email.component';
+// import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({
@@ -61,11 +61,11 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     SeccionhabilidadesComponent,
     SeccionproyectosComponent,
     LoginComponent,
-    RegistroComponent,
+    // RegistroComponent,
     MenuComponent,
     IndexComponent,
-    SendEmailComponent,
-    ChangePasswordComponent    
+    // SendEmailComponent,
+    // ChangePasswordComponent    
   ],
   imports: [
     BrowserModule,
@@ -76,7 +76,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     FormsModule, 
     ReactiveFormsModule
   ],
-  providers: [interceptorProvider],
+  // providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

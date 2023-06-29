@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
-import { TokenService } from '../../servicios/token.service';
+// import { TokenService } from '../../servicios/token.service';
 
 @Component({
   selector: 'app-seccioneducacion',
@@ -34,12 +34,12 @@ export class SeccioneducacionComponent implements OnInit {
   isTrue: boolean = false;
 
   //roles: string[];
-  isAdmin = false;
+  // isAdmin = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private sEducacion: EducacionService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
   ) {
     this.form = this.formBuilder.group({
       institucion: ['', Validators.required],
@@ -101,7 +101,7 @@ export class SeccioneducacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarEducacion();
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.isAdmin = this.tokenService.isAdmin();
   }
 
   cargarEducacion(): void {

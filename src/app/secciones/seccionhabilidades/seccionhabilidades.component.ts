@@ -6,7 +6,7 @@ import { HabilidadService } from 'src/app/servicios/habilidad.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { TokenService } from '../../servicios/token.service';
+// import { TokenService } from '../../servicios/token.service';
 
 @Component({
   selector: 'app-seccionhabilidades',
@@ -24,13 +24,13 @@ export class SeccionhabilidadesComponent implements OnInit {
   idEditar?: number;
   isTrue: boolean = false;
 
-  isAdmin = false;
+  // isAdmin = false;
 
 
 
   constructor(private formBuilder: FormBuilder, 
     private sHabilidad:HabilidadService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
     ){ 
       this.form= this.formBuilder.group({
         nombre:['',Validators.required],
@@ -44,7 +44,7 @@ export class SeccionhabilidadesComponent implements OnInit {
     //   this.habilidades = data.skills;
     // });
     this.cargarHabilidad();
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.isAdmin = this.tokenService.isAdmin();
 
   }
 

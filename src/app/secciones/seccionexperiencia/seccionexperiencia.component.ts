@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { DatePipe } from '@angular/common';
 
 import { ToastrService } from 'ngx-toastr';
-import { TokenService } from '../../servicios/token.service';
+// import { TokenService } from '../../servicios/token.service';
 
 
 @Component({
@@ -28,12 +28,12 @@ export class SeccionexperienciaComponent implements OnInit {
   selectedFile: File | null;
   isTrue: boolean = false;
 
-  isAdmin = false;
+  // isAdmin = false;
 
 
   constructor(private formBuilder: FormBuilder, 
     private sExperiencia:ExperienciaService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
     ){ 
 this.form= this.formBuilder.group({
   empresa:['',Validators.required],
@@ -81,7 +81,7 @@ this.selectedFile = null;
 
   ngOnInit(): void{
     this.cargarExperiencia();
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.isAdmin = this.tokenService.isAdmin();
    }
 
   cargarExperiencia():void{

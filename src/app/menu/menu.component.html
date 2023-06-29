@@ -8,20 +8,24 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/"><i class="fas fa-home"></i> Inicio</a>
         </li>
-        <li class="nav-item" *ngIf="isLogged">
-          <a class="nav-link" routerLink="/main"><i class="far fa-list-alt"></i> Lista</a>
+        <!-- <li class="nav-item" *ngIf="isLogged"> -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/"><i class="far fa-list-alt"></i> Lista</a>
         </li>
-        <li class="nav-item" *ngIf="isAdmin">
+        <!-- <li class="nav-item" *ngIf="isAdmin"> -->
+        <li class="nav-item">
           <a class="nav-link" routerLink="/dashboard"><i class="far fa-list-alt"></i> Dashboard</a>
         </li>
         
       </ul>
 
       <form class="form-inline my-2 my-lg-0">
-        <button *ngIf="!isLogged" class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" type="submit">
+        <!-- <button *ngIf="!isLogged" class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" type="submit"> -->
+        <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" type="submit">
           <i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
-        <button *ngIf="isLogged" class="btn btn-outline-success my-2 my-sm-0" (click)="onLogOut()" type="reset">
-          <i class="fas fa-sign-in-alt"></i> 
+          <!-- <button *ngIf="isLogged" class="btn btn-outline-success my-2 my-sm-0" (click)="onLogOut()" type="reset"> -->
+          <button class="btn btn-outline-success my-2 my-sm-0" type="reset">
+            <i class="fas fa-sign-in-alt"></i> 
           <i class="fas fa-door-open" ></i> Cerrar Sesión</button>
 
       </form>

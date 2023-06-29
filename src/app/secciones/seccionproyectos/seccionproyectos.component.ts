@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Proyectos } from 'src/app/model/proyectos';
 import { DatosService } from 'src/app/servicios/datos.service';
 import { ProyectosService } from 'src/app/servicios/proyectos.service';
-import { TokenService } from 'src/app/servicios/token.service';
+// import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-seccionproyectos',
@@ -20,14 +20,14 @@ export class SeccionproyectosComponent implements OnInit {
   idEditar?: number;
   isTrue: boolean = false;
 
-  isAdmin = false;
+  // isAdmin = false;
   proye: any;
 
 
   
   constructor(private formBuilder: FormBuilder, 
     private sProyectos:ProyectosService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
     ) { 
       this.form= this.formBuilder.group({
         titulo:['',Validators.required],
@@ -38,7 +38,7 @@ export class SeccionproyectosComponent implements OnInit {
 
       ngOnInit(): void{
         this.cargarProyectos();
-        this.isAdmin = this.tokenService.isAdmin();
+        // this.isAdmin = this.tokenService.isAdmin();
        }
     
        cargarProyectos():void{

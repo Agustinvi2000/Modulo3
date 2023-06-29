@@ -9,8 +9,8 @@ import {
 import { Experiencia } from 'src/app/model/experiencia';
 import { ExperienciaService } from 'src/app/servicios/experiencia.service';
 
-import { ToastrService } from 'ngx-toastr';
-import { TokenService } from 'src/app/servicios/token.service';
+// import { ToastrService } from 'ngx-toastr';
+// import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-experiencia',
@@ -21,14 +21,14 @@ export class ExperienciaComponent implements OnInit {
   form: FormGroup;
   persona_idAdd: number = 1;
   logoAdd: string ='';
-  isAdmin = false;
+  // isAdmin = false;
 
 
   // Inyectar en el constructor el formBuilder
   constructor(
     private formBuilder: FormBuilder,
     private sExperiencia: ExperienciaService,
-    private tokenService: TokenService
+    // private tokenService: TokenService
   ) {
     ///Creamos el grupo de controles para el formulario de login
 
@@ -70,7 +70,7 @@ export class ExperienciaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isAdmin = this.tokenService.isAdmin();
+    // this.isAdmin = this.tokenService.isAdmin();
 
   }
 

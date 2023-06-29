@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from '../servicios/token.service';
+// import { TokenService } from '../servicios/token.service';
 
 @Component({
   selector: 'app-index',
@@ -8,12 +8,14 @@ import { TokenService } from '../servicios/token.service';
 })
 export class IndexComponent implements OnInit {
 
-  nombreUsuario!: string;
+  // nombreUsuario!: string;
 
-  constructor(private tokenService: TokenService) { }
+  constructor(
+    // private tokenService: TokenService
+    ) { }
 
   ngOnInit() {
-    this.nombreUsuario = this.tokenService.getUserName()
+    // this.nombreUsuario = this.tokenService.getUserName()
   }
 
 }
